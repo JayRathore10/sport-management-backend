@@ -34,6 +34,11 @@ const playerSchema = new mongoose.Schema({
     unique: true,
     lowercase: true,
     match: [/\S+@\S+\.\S+/, 'Please fill a valid email address']
+  }, 
+  password : {
+    type : String , 
+    required : [true , "Password is required"] , 
+    minLength : 8
   }
 })
 
