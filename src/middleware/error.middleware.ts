@@ -1,0 +1,42 @@
+import { Request , Response  , NextFunction } from "express";
+
+export const errorMiddleware = async(err : any  , req : Request ,res : Response , next : NextFunction)=>{
+  try{
+    let error = {...err};
+
+    error.message = err.message ;
+
+    console.log(err);
+
+    // Mongose bad objectId 
+    if(err.name === "CastError"){
+      const message = "Resource not Found";
+      error = new Error(message);
+      error.statusCode = 404;
+    }
+
+    if(err.code === 11000){
+      const message = "Duplicate field value entered";
+      error = new Error(message);
+      error.statusCode = 400;
+    }
+
+    if(err.name === "ValidationError"){
+      const message = Object.values(err.errors).map((val : any) => val.message).join(",");
+
+      error = new Error(message);
+      error.statusCode = 400;
+    }
+
+    res.status(error.statusCode || 500).json({
+      success : false, 
+      error: error.message || "Server Error"
+    });
+
+  }catch(error){
+    return res.status(500).json({
+      success : false , 
+      error : "Server Error"
+    })
+  }
+}
