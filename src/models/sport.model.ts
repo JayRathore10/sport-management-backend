@@ -1,6 +1,14 @@
 import mongoose from "mongoose";
+import { Document } from "mongoose";
 
-const sportSchema = new mongoose.Schema({
+interface SportInterface extends Document {
+  name: string  , 
+  category : "male" | "female" , 
+  eventDate : Date ,
+  eventTime : Date , 
+}
+
+const sportSchema = new mongoose.Schema<SportInterface>({
   name : {
     type : String  , 
     required :[true, "Sport name needed"] ,

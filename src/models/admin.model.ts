@@ -1,6 +1,14 @@
-import mongoose, { MongooseError } from "mongoose";
+import mongoose from "mongoose";
+import { Document } from "mongoose";
 
-const adminSchema = new mongoose.Schema({
+interface AdminInterface extends Document {
+  name : string , 
+  email : string , 
+  mobileNumber : string  ,
+  password : string 
+}
+
+const adminSchema = new mongoose.Schema<AdminInterface>({
   name: {
     type: String,
     required: [true, "Admin name is needed"]

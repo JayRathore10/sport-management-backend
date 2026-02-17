@@ -1,6 +1,18 @@
 import mongoose from "mongoose";
+import { Document } from "mongoose";
 
-const playerSchema = new mongoose.Schema({
+interface PlayerInterface extends Document {
+  name : string , 
+  sport : string , 
+  mobileNumber : string , 
+  age : number , 
+  gender : "male" | "female" , 
+  email : string ,
+  password : string , 
+  sportId : mongoose.Schema.Types.ObjectId 
+}
+
+const playerSchema = new mongoose.Schema<PlayerInterface>({
   name: {
     type: String,
     minLength: 3,
