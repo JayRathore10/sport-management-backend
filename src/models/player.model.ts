@@ -39,6 +39,11 @@ const playerSchema = new mongoose.Schema({
     type : String , 
     required : [true , "Password is required"] , 
     minLength : 8
+  } , 
+  sportId : {
+    // we generate by the name of the sport and search it using find() and then get the _id and put in this 
+    type : mongoose.Schema.Types.ObjectId , 
+    ref : "Sport"
   }
 })
 
